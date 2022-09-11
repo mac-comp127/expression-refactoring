@@ -122,6 +122,55 @@ public class MessyExpressions {
         return text;
     }
 
+    // ------------ BONUS CHALLENGES ------------
+
+    /**
+     * Computes the account balance after purchasing the given quantity of the given item:
+     * 
+     *     doodad       $5.99
+     *     widget      $12.99
+     *     thingamabob $15.95
+     * 
+     * The account balance is expressed as cents, so that it can be an integer and thus avoid
+     * floating point rounding error problems.
+     * 
+     * The item name is case-insensitive, and ignores leading and trailing whitespace.\
+     * 
+     * If there are insufficient funds, the method assumes the item was not purchased, and returns
+     * the original account balance.
+     * 
+     * YOUR TASK: This method contains a lot of repeated code. Try to refactor it so that there is
+     * absolutely no unnecessary repetition.
+     */
+    public static int calculateBalanceAfterPurchase(
+        String product,
+        int quantity,
+        int accountBalance
+    ) {
+        if (product.trim().toLowerCase().equals("doodad")) {
+            if (quantity * 599 > accountBalance) {
+                return accountBalance;
+            }
+            return accountBalance - quantity * 599;
+        }
+        if (product.trim().toLowerCase().equals("widget")) {
+            if (quantity * 1299 > accountBalance) {
+                return accountBalance;
+            }
+            return accountBalance - quantity * 1299;
+        }
+        if (product.trim().toLowerCase().equals("thingamabob")) {
+            if (quantity * 1595 > accountBalance) {
+                return accountBalance;
+            }
+            return accountBalance - quantity * 1595;
+        }
+        // This is Java’s way of saying, “This function can’t return because there was an error.”
+        // We haven’t studied this yet, and you don’t need to learn all about it now. You can just
+        // copy/move this whole line as is into your refactored code.
+        throw new IllegalArgumentException("Unknown product: " + product);
+    }
+
     /**
      * Returns true if the given strength contains the numerals for its own
      * length. For example, "th15 one does!!" because it contains the string “15”.

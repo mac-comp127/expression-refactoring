@@ -71,6 +71,29 @@ class MessyExpressionsTest {
         assertEquals("", MessyExpressions.removeAccents(""));
     }
 
+
+    @Test
+    void calculateBalanceAfterPurchase_success() {
+        assertEquals(5208, MessyExpressions.calculateBalanceAfterPurchase("     dOodAd", 8, 10000));
+        assertEquals(7402, MessyExpressions.calculateBalanceAfterPurchase("  WIDGET   ", 2, 10000));
+        assertEquals(2025, MessyExpressions.calculateBalanceAfterPurchase("tHiNgAmAbOB", 5, 10000));
+        assertEquals(0, MessyExpressions.calculateBalanceAfterPurchase("doodad", 8, 4792));
+    }
+
+    @Test
+    void calculateBalanceAfterPurchase_insufficientFunds() {
+        assertEquals(0, MessyExpressions.calculateBalanceAfterPurchase("DOODAD", 1, 0));
+        assertEquals(1300, MessyExpressions.calculateBalanceAfterPurchase("wIDGEt", 2, 1300));
+        assertEquals(10000, MessyExpressions.calculateBalanceAfterPurchase("thingamabob", 8, 10000));
+    }
+
+    @Test
+    void calculateBalanceAfterPurchase_unknownProduct() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> MessyExpressions.calculateBalanceAfterPurchase("widgamabob", 1, 10000));
+    }
+
     @Test
     void containsOwnLength() {
         assertTrue(MessyExpressions.containsOwnLength("th15 one does!!"));
